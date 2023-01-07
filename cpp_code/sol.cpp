@@ -8,7 +8,7 @@ using ll = int64_t;
 
 struct result {ll ans; ll worst_path;};
 
-result dsf(ll x, const vector<vector<ll>>& g, const vector<ll>& F) {
+result dfs(ll x, const vector<vector<ll>>& g, const vector<ll>& F) {
     if (g[x].size() == 0) {
         return result{F[x],F[x]};
     } else {
@@ -16,7 +16,7 @@ result dsf(ll x, const vector<vector<ll>>& g, const vector<ll>& F) {
         ll worst_path = 1e9;
 
         for (ll c : g[x]) {
-            auto [total, path] = dsf(c, g, F);
+            auto [total, path] = dfs(c, g, F);
             ans += total;
             worst_path = min(worst_path, path);
         }
@@ -34,7 +34,7 @@ int main() {
     for (ll tcase=1; tcase<= T; tcase++) {
         ll n;
         scanf("%lld", &n);
-        
+
         vector<ll> F(n+1,0);
         for (ll i=0; i<n; i++) {
             // cin >> F[i+1];
@@ -53,7 +53,7 @@ int main() {
             }
         }
  
-        auto [ans,root_path] = dsf(0,graph,F);
+        auto [ans,root_path] = dfs(0,graph,F);
         printf("Case #%lld: %lld \n",tcase,ans);
     }
 

@@ -13,12 +13,12 @@ fn main() {
 
     for case in 1..=num_cases {
         let (_num_modules, fun_factors, graph) = read_case(&std_in);
-        let (ans, _root_path) = dsf(0,&graph, &fun_factors);
+        let (ans, _root_path) = dfs(0,&graph, &fun_factors);
         println!("Case #{}: {}", case, ans);
     }
 }
 
-fn dsf(n: usize, graph:&Vec<Vec<usize>>, fun_factors: &Vec<usize>) -> (usize, usize) {
+fn dfs(n: usize, graph:&Vec<Vec<usize>>, fun_factors: &Vec<usize>) -> (usize, usize) {
     if graph[n].len() == 0 
     {
         return (fun_factors[n], fun_factors[n])
@@ -26,7 +26,7 @@ fn dsf(n: usize, graph:&Vec<Vec<usize>>, fun_factors: &Vec<usize>) -> (usize, us
         let mut ans = 0;
         let mut wors_path = usize::MAX;
         for c in &graph[n] {
-            let (total, path) = dsf(*c,graph,fun_factors);
+            let (total, path) = dfs(*c,graph,fun_factors);
             ans += total;
             wors_path = std::cmp::min(wors_path, path);
         }
