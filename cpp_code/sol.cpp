@@ -48,11 +48,9 @@ int main() {
 
         vector<vector<ll>> graph(n+1,vector<ll>{});
         for (ll i=1; i<=n; i++) {
-           // if (P[i] >= 0) {
-                graph[P[i]].push_back(i);
-           // }
+            graph[P[i]].push_back(i);
         }
- 
+        
         auto [ans,root_path] = dfs(0,graph,F);
         printf("Case #%lld: %lld\n",tcase,ans);
     }
