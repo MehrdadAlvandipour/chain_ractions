@@ -54,14 +54,14 @@ fn read_case(std_in: &io::Stdin) -> (usize, Vec<usize>,Vec<Vec<usize>>) {
 
     input_str = String::new();
     std_in.read_line(&mut input_str).unwrap();
-    let mut pointers: Vec<isize> = vec![-1; num_modules+1];
+    let mut pointers: Vec<usize> = vec![0; num_modules+1];
     for (i,v) in input_str.trim().split_whitespace().into_iter().enumerate() {
-        pointers[i+1] = v.parse::<isize>().unwrap();
+        pointers[i+1] = v.parse::<usize>().unwrap();
     }
 
     let mut graph: Vec<Vec<usize>> = vec![Vec::new(); num_modules+1];
-        for i in 1..=num_modules {
-            graph[usize::try_from(pointers[i]).unwrap()].push(i);
-        }
+    for i in 1..=num_modules {
+        graph[pointers[i]].push(i);
+    }
     (num_modules, fun_factors, graph)
 }
