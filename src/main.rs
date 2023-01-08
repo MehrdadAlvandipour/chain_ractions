@@ -1,7 +1,5 @@
 use std::{io, vec};
 
-
-
 fn main() {
 
     let std_in  = io::stdin();
@@ -24,17 +22,17 @@ fn dfs(n: usize, graph:&Vec<Vec<usize>>, fun_factors: &Vec<usize>) -> (usize, us
         return (fun_factors[n], fun_factors[n])
     } else {
         let mut ans = 0;
-        let mut wors_path = usize::MAX;
+        let mut worst_path = usize::MAX;
         for c in &graph[n] {
             let (total, path) = dfs(*c,graph,fun_factors);
             ans += total;
-            wors_path = std::cmp::min(wors_path, path);
+            worst_path = std::cmp::min(worst_path, path);
         }
-        if wors_path < fun_factors[n] {
-            ans += fun_factors[n] - wors_path;
-            wors_path = fun_factors[n];
+        if worst_path < fun_factors[n] {
+            ans += fun_factors[n] - worst_path;
+            worst_path = fun_factors[n];
         }
-        return (ans, wors_path)
+        return (ans, worst_path)
     }
 }
 
